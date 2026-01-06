@@ -11,4 +11,4 @@ Extracts data from a public API, transforms it using Python, and loads it into P
 1. Set up database
 2. Configure API and credentials
 3. Run:
-   python etl.py
+   python etl.py  
