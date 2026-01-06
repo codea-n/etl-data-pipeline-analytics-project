@@ -1,4 +1,3 @@
-# Beginner Data Engineering Project – ETL Pipeline
 
 ## Description
 Extracts data from a public API, transforms it using Python, and loads it into PostgreSQL.
