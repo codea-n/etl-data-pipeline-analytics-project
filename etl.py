@@ -26,23 +26,3 @@ def extract():
 
     # 4. Return raw JSON
     return data
-
-# STEP
-def transform(raw_data):
-#     """
-#     Transform raw JSON into clean dataframe
-#     """
-
-#     rows=[]
-#     for country in raw_data:
-#         if "borders" in country and country["borders"]:
-#             for border_country in country["borders"]:
-#                 rows.append({
-#                     "country_code": country["cca3"],
-#                     "country_name": country["name"]["common"],
-#                     "border_country_code": border_country
-#                 })
-
-#     df = pd.DataFrame(rows)
-#     return df
-
