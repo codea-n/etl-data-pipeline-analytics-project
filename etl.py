@@ -26,4 +26,3 @@ def extract():
 
     # 4. Return raw JSON
     return data
-
