@@ -87,3 +87,6 @@ def run_pipeline():
     # refresh_border_counts()
     updated_countries = load(df)
     refresh_border_counts(updated_countries)
+
+if __name__ == "__main__":
+    run_pipeline()
