@@ -76,3 +76,14 @@ def load(df):
     conn.commit()
     conn.close()
     return newly_inserted
+
+def run_pipeline():
+    create_table()
+    raw_data = extract()
+    df = transform(raw_data)
+    # load(df)
+
+    # create_border_counts_table()
+    # refresh_border_counts()
+    updated_countries = load(df)
+    refresh_border_counts(updated_countries)
