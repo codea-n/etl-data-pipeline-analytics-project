@@ -44,3 +44,35 @@ def transform(raw_data):
 
     df = pd.DataFrame(rows)
     return df
+
+
+def load(df):
+    """
+    Load dataframe into PostgreSQL
+    """
+    # 1. Connect
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    newly_inserted=set()
+
+    # 2. Loop over DataFrame rows and insert
+    for _,row in df.iterrows():
+        try:
+            cursor.execute(
+                """
+                INSERT INTO country_borders (country_code,country_name,border_country_code)
+                VALUES (?,?,?)
+                """,
+                (row['country_code'],row['country_name'],row['border_country_code'])
+            )
+            newly_inserted.add(row['country_code'])
+        except sqlite3.IntegrityError:
+            pass
+
+
+    
+    # 3. Commit and close
+    conn.commit()
+    conn.close()
+    return newly_inserted
