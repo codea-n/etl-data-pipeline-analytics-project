@@ -66,3 +66,32 @@ def create_border_counts_table():
 
     conn.commit()
     conn.close()
+
+def refresh_border_counts(updated_countries):
+    if not updated_countries:
+        return
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    for country_code in updated_countries:
+        cursor.execute(
+            """
+            INSERT OR REPLACE INTO country_border_counts (
+                country_code,
+                country_name,
+                border_count
+            )
+            SELECT
+                country_code,
+                country_name,
+                COUNT(*) AS border_count
+            FROM country_borders
+            WHERE country_code = ?
+            GROUP BY country_code, country_name;
+            """,
+            (country_code,)
+        )
+
+    conn.commit()
+    conn.close()
