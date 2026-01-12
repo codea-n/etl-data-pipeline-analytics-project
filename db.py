@@ -29,3 +29,25 @@ def create_table():
     cursor.execute(sql)
     conn.commit()
     conn.close()
+
+def insert_rows(rows):
+    """
+    Insert transformed rows into database
+    rows: list of tuples (country_code, country_name, border_country_code)
+    """
+    if not rows:
+        return  # nothing to insert
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.executemany(
+        """
+        INSERT INTO country_borders (country_code, country_name, border_country_code)
+        VALUES (?, ?, ?)
+        """,
+        rows
+    )
+    
+    conn.commit()
+    conn.close()
