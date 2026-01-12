@@ -51,3 +51,18 @@ def insert_rows(rows):
     
     conn.commit()
     conn.close()
+
+def create_border_counts_table():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS country_border_counts (
+            country_code TEXT PRIMARY KEY,
+            country_name TEXT,
+            border_count INTEGER
+        );
+    """)
+
+    conn.commit()
+    conn.close()
