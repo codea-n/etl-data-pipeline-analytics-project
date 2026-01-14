@@ -30,3 +30,15 @@ chart = alt.Chart(top10).mark_bar().encode(
     y=alt.Y('country_name:N', sort='-x')
 )
 st.altair_chart(chart, use_container_width=True)
+
+
+# Query 2: Countries with only 1 border
+st.header("Countries with Only 1 Border")
+single_border = pd.read_sql_query("""
+    SELECT country_name, border_count
+    FROM country_border_counts
+    WHERE border_count = 1
+    ORDER BY country_name
+""", conn)
+st.table(single_border)
+
