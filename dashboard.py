@@ -31,6 +31,7 @@ chart = alt.Chart(top10).mark_bar().encode(
 )
 st.altair_chart(chart, use_container_width=True)
 
+
 # Query 2: Countries with only 1 border
 st.header("Countries with Only 1 Border")
 single_border = pd.read_sql_query("""
@@ -48,3 +49,13 @@ avg_borders = pd.read_sql_query("""
     FROM country_border_counts
 """, conn)
 st.metric("Average Borders", round(avg_borders.iloc[0,0], 2))
+
+# Query 4: Countries above average borders
+st.header("Countries Above Average Border Count")
+above_avg = pd.read_sql_query("""
+    SELECT country_name, border_count
+    FROM country_border_counts
+    WHERE border_count > (SELECT AVG(border_count) FROM country_border_counts)
+    ORDER BY border_count DESC
+""", conn)
+st.table(above_avg)
