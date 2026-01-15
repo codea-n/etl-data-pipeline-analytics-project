@@ -59,3 +59,11 @@ above_avg = pd.read_sql_query("""
     ORDER BY border_count DESC
 """, conn)
 st.table(above_avg)
+
+# Query 5: Total number of countries
+st.header("Total Number of Countries")
+total = pd.read_sql_query("""
+    SELECT COUNT(*) AS total_countries
+    FROM country_border_counts
+""", conn)
+st.metric("Total Countries", total.iloc[0,0])
