@@ -15,3 +15,15 @@ from_file = Path(sys.argv[1])
 to_file = Path(sys.argv[2])
 function_name = sys.argv[3]
 
+# --- Validate files ---
+if not from_file.exists():
+    print(f"Source file not found: {from_file}")
+    sys.exit(1)
+
+if not to_file.exists():
+    print(f"Destination file not found: {to_file}")
+    sys.exit(1)
+
+# --- Read files ---
+from_text = from_file.read_text()
+to_text = to_file.read_text()
