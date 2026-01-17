@@ -53,4 +53,11 @@ from_lines = from_text.splitlines()
 func_code = "\n".join(
     from_lines[target_func.lineno - 1 : target_func.end_lineno]
 )
+# Insert function at end of destination file
+to_text = to_text.rstrip() + "\n\n" + func_code + "\n"
+to_file.write_text(to_text)
 
+print(
+    f"Inserted function '{function_name}' "
+    f"from {from_file} into {to_file}"
+)
