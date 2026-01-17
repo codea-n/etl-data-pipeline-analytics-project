@@ -48,3 +48,9 @@ if f"def {function_name}(" in to_text:
     print(f"Function '{function_name}' already exists in {to_file}")
     sys.exit(0)
 
+# Extract function source 
+from_lines = from_text.splitlines()
+func_code = "\n".join(
+    from_lines[target_func.lineno - 1 : target_func.end_lineno]
+)
+
