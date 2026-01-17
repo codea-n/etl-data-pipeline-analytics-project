@@ -27,3 +27,17 @@ if not to_file.exists():
 # --- Read files ---
 from_text = from_file.read_text()
 to_text = to_file.read_text()
+
+# --- Parse source file ---
+tree = ast.parse(from_text)
+functions = {
+    node.name: node
+    for node in tree.body
+    if isinstance(node, ast.FunctionDef)
+}
+
+if function_name not in functions:
+    print(f"Function '{function_name}' not found in {from_file}")
+    sys.exit(1)
+
+target_func = functions[function_name]
