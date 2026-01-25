@@ -13,3 +13,19 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
+with DAG(
+    'country_etl',
+    default_args=default_args,
+    description='Daily ETL for country borders',
+    schedule_interval='@daily',  # runs every day
+    start_date=datetime(2026, 1, 13),
+    catchup=False,
+    tags=['ETL'],
+) as dag:
+
+    run_etl = PythonOperator(
+        task_id='run_etl',
+        python_callable=run_pipeline
+    )
+
+    run_etl
