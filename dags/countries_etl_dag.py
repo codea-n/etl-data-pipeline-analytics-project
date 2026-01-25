@@ -14,17 +14,17 @@ default_args = {
 }
 
 with DAG(
-    'country_etl',
+    dag_id="country_etl_daily",
     default_args=default_args,
-    description='Daily ETL for country borders',
-    schedule_interval='@daily',  # runs every day
-    start_date=datetime(2026, 1, 13),
+    description="Daily ETL for country borders data",
+    start_date=datetime(2024, 1, 1),
+    schedule_interval="@daily",
     catchup=False,
-    tags=['ETL'],
+    tags=["etl", "countries"],
 ) as dag:
 
     run_etl = PythonOperator(
-        task_id='run_etl',
+        task_id='run_country_etl',
         python_callable=run_pipeline
     )
 
